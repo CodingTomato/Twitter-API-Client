@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+
+  <body>
+    <!-- Navigation Bar START -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">KDSP Project</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarColor02"
+          aria-controls="navbarColor02"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor02">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/"
+                >Home
+                <span class="visually-hidden">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/dataset"
+                >Dataset
+                <span class="visually-hidden">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/sentiment"
+                >Sentiment Analysis
+                <span class="visually-hidden">(current)</span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- Search for users followers or tweets section START -->
+          <form class="d-flex">
+            <!-- If a username is set display it in the text input -->
+            {% if user %}
+            <input
+              id="usernameInput"
+              class="form-control me-sm-2"
+              type="text"
+              placeholder="Type a username"
+              value="{{ user.username }}"
+            />
+            <!-- If a username is set display a empty text input -->
+            {% else %}
+            <input
+              id="usernameInput"
+              class="form-control me-sm-2"
+              type="text"
+              placeholder="Type a username"
+            />
+            {% endif %}
+            <button
+              id="searchTweets"
+              class="btn btn-secondary my-2 my-sm-0"
+              style="margin-right: 0.25rem"
+              type="button"
+            >
+              Tweets
+            </button>
+            <button
+              id="searchFollowers"
+              class="btn btn-secondary my-2 my-sm-0"
+              type="button"
+            >
+              Followers
+            </button>
+          </form>
+          <!-- Search for users followers or tweets section END -->
+        </div>
+      </div>
+    </nav>
+    <!-- Navigation Bar START -->
+
+    <!-- Each site will be rendered in this main block -->
+    <main>{% block main %}{% endblock main %}</main>
+  </body>
+
+  <footer>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </footer>
+</html>

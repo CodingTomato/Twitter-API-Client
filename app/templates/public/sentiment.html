@@ -1,0 +1,86 @@
+{% extends "public/templates/public_template.html" %} {% block title %}Sentiment
+Analysis{% endblock %} {% block main %}
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Sentiment Analysis</h1>
+      <hr />
+      <form action="/sentiment" method="POST">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            name="input"
+            placeholder="Input text"
+            aria-label="Input text"
+            aria-describedby="button-addon2"
+            value="{{ text }}"
+          />
+          <button
+            class="btn btn-outline-secondary"
+            type="submit"
+            id="button-addon2"
+          >
+            Analyze sentiment
+          </button>
+        </div>
+      </form>
+
+      <!-- if a text was input show the overall sentiment and the sentiment score -->
+      {% if text != "" %}
+
+      <h4 class="margin-bottom">
+        Total score: {{ getSentimentScore(text) }} ➡️ Text has
+        <b>{{ getSentiment(text).lower() }}</b> sentiment.
+      </h4>
+
+      <span class="text-light">Neutral</span> &bull;
+      <span class="text-success">Positive</span> &bull;
+      <span class="text-danger">Negative</span>
+
+      <hr />
+
+      <ul class="list-group">
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center"
+        >
+          Index - Word
+          <span class="badge bg-primary rounded-pill">Sentiment score</span>
+        </li>
+      </ul>
+
+      <ul class="list-group margin-top">
+        <!-- Display the sentiment for each word in the text with the corresponding color -->
+        {% for sentiment in sentiment_per_word %} {% if sentiment[1] ==
+        "Positive" %}
+        <li
+          class="list-group-item list-group-item-success d-flex justify-content-between align-items-center"
+        >
+          {{ loop.index }} - {{ sentiment[0] }}
+          <span class="badge bg-primary rounded-pill">{{ sentiment[2] }}</span>
+        </li>
+        {% elif sentiment[1] == "Negative" %}
+
+        <li
+          class="list-group-item list-group-item-danger d-flex justify-content-between align-items-center"
+        >
+          {{ loop.index }} - {{ sentiment[0] }}
+          <span class="badge bg-primary rounded-pill">{{ sentiment[2] }}</span>
+        </li>
+        {% else %}
+
+        <li
+          class="list-group-item list-group-item-light d-flex justify-content-between align-items-center"
+        >
+          {{ loop.index }} - {{ sentiment[0] }}
+          <span class="badge bg-primary rounded-pill">{{ sentiment[2] }}</span>
+        </li>
+        {% endif %} {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

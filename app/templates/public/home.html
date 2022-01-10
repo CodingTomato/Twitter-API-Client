@@ -1,0 +1,62 @@
+{% extends "public/templates/public_template.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block main %}
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Home</b></h1>
+      <hr>
+
+      <div class="container">
+        <div class="row">
+          <div class="col">
+                  <!-- Followers and Tweets instructions -->
+      <div class="card">
+        <img src="../../static/img/tweets.png" class="card-img-top img-border" alt="Example of a set of tweets">
+        <div class="card-body">
+          <h5 class="card-title">Tweets and followers</h5>
+          <p class="card-text">
+            If you want to view the tweets of a given username you can type any name into the textfield above an click on the
+            <button class="btn btn-secondary my-2 my-sm-0">Tweets</button> button. If you want to view the followers of a username
+            you can do the same as before but click the <button class="btn btn-secondary my-2 my-sm-0">Followers</button> button.
+          </p>
+        </div>
+      </div>
+          </div>
+          <div class="col">
+                  <!-- Sentiment analysis instructions -->
+      <div class="card">
+        <img src="../../static/img/sentiment.png" class="card-img-top img-border" alt="Example of a sentiment analysis">
+        <div class="card-body">
+          <h5 class="card-title">Sentiment Analysis</h5>
+          <p class="card-text">
+            To analyze the sentiment of any English text you can click on the <i>Sentiment Analysis</i> link in
+            the navbar above. Arrived at the page you can input any text into the textfield. By clicking the 
+            <button class="btn btn-outline-secondary">Analyze sentiment </button> button the application will analyze each word 
+            and present the overall sentiment as well as the sentiment per word.
+          </p>
+        </div>
+      </div>
+      <div class="card margin-top">
+        <img src="../../static/img/dataset.png" class="card-img-top img-border" alt="Example of a sentiment analysis">
+        <div class="card-body">
+          <h5 class="card-title">Dataset Analysis</h5>
+          <p class="card-text">
+            To analyze the sentiment of any English text you can click on the <i>Sentiment Analysis</i> link in
+            the navbar above. Arrived at the page you can input any text into the textfield. By clicking the 
+            <button class="btn btn-outline-secondary">Analyze sentiment </button> button the application will analyze each word 
+            and present the overall sentiment as well as the sentiment per word.
+          </p>
+        </div>
+      </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

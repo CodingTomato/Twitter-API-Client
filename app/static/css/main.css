@@ -1,0 +1,17 @@
+.container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.margin-bottom {
+  margin-bottom: .5rem;
+}
+
+.margin-top {
+  margin-top: .5rem;
+}
+
+
+.img-border {
+  border: .25px solid #6f7e80;
+}

@@ -1,0 +1,197 @@
+{% extends "public/templates/public_template.html" %} {% block title %}Dataset
+Analysis{% endblock %} {% block main %}
+
+<div class="container">
+  <div class="row">
+    <!-- Input section for the search query START -->
+    <form action="/dataset" method="POST">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          name="input"
+          placeholder="Input query"
+          aria-label="Input query"
+          aria-describedby="button-addon2"
+          value="{{ query }}"
+        />
+        <button
+          class="btn btn-outline-secondary"
+          type="submit"
+          id="button-addon2"
+        >
+          Request Dataset
+        </button>
+      </div>
+    </form>
+    <!-- Input section for the search query END -->
+  </div>
+  <div class="row">
+    <div class="col">
+      <!-- If there is no dataset only display this text -->
+      {% if number_of_tweets < 1 %}
+      <h3>No dataset found... Maybe you didn't set a search query?</h3>
+      {% else %}
+
+      <hr />
+      <!-- If there is a dataset display the below -->
+      <h3>Analysis of dataset ({{ number_of_tweets }} tweets)</h3>
+      <div class="accordion" id="accordionExample">
+        <!-- Top 10 hastags accordion item -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+              Top 10 hashtags by number of uses
+            </button>
+          </h2>
+          <div
+            id="collapseOne"
+            class="accordion-collapse collapse show"
+            aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <!-- For each hashtag display a button with the hashtag and its occurences -->
+              {% for tag in top10Hashtags %}
+              <a
+                href="https://twitter.com/hashtag/{{ tag[0] }}"
+                target="_blank"
+                class="btn btn-primary margin-top"
+              >
+                #{{ tag[0] }}
+                <span class="badge bg-secondary">{{ tag[1] }} times</span>
+              </a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <!-- Top 10 users accordion item -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo"
+              aria-expanded="false"
+              aria-controls="collapseTwo"
+            >
+              Top 10 users by number of tweets
+            </button>
+          </h2>
+          <div
+            id="collapseTwo"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingTwo"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <!-- For each user display a button with the username and its number of tweets -->
+              {% for user in top10UsersFromTweets %}
+              <a
+                href="https://twitter.com/{{ tweets_users.get(user[0]).username }}"
+                target="_blank"
+                class="btn btn-primary margin-top"
+              >
+                {{ tweets_users.get(user[0]).username }}
+                <span class="badge bg-secondary">{{ user[1] }} tweets</span>
+              </a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <!-- All users accordion item -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseThree"
+              aria-expanded="false"
+              aria-controls="collapseThree"
+            >
+              All Users ({{ number_of_users }})
+            </button>
+          </h2>
+          <div
+            id="collapseThree"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingThree"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <ul class="list-group">
+                <!-- display each username in a list item -->
+                {% for user in tweets_users.values() %}
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  {{ user.username }}
+                  <a
+                    class="btn btn-primary"
+                    href="/user/{{ user.username }}/followers"
+                    >Get followers</a
+                  >
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <!-- display each tweet in the dataset as a card -->
+    {% for tweet in data %}
+    <div class="col-3 margin-bottom">
+      <div class="card" style="width: 20rem; min-height: 20rem">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">
+            From <b>{{ tweets_users.get(tweet.author_id).username }}</b>
+          </h6>
+          <p class="card-text">{{ tweet.text }}</p>
+        </div>
+
+        <div class="card-footer text-muted">
+          <form action="/sentiment" method="POST">
+            <input
+              type="hidden"
+              class="form-control"
+              name="input"
+              value="{{ tweet.text }}"
+            />
+            <a
+              class="btn btn-sm btn-secondary"
+              target="_blank"
+              href="https://twitter.com/anyuser/status/{{ tweet.id }}"
+              >View tweet</a
+            >
+            <a
+              class="btn btn-sm btn-info"
+              target="_blank"
+              href="/user/{{ tweets_users.get(tweet.author_id).username }}/followers"
+              >Followers</a
+            >
+            <button class="btn btn-sm btn-primary" type="submit">
+              Sentiment
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

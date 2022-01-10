@@ -1,0 +1,53 @@
+{% extends "public/templates/public_template.html" %} {% block title %}{{
+user.username }}'s Tweets{% endblock %} {% block main %}
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <!-- Display this text when no tweets were found -->
+      {% if number_of_tweets < 1 %}
+      <h3>No tweets were found... Maybe wrong username?</h3>
+      {% else %}
+      <!-- Display the exact tweets count and the displayed tweet count -->
+      <h1>
+        <b>{{ user.username }}</b> has a total of {{
+        user.public_metrics.tweet_count }} tweets
+      </h1>
+      <h6>Displaying the last {{ number_of_tweets }} blow</h6>
+      <a href="/user/{{ user.username }}/followers"
+        >Click to see {{ user.username }}'s followers...</a
+      >
+      {% endif %}
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <!-- Display each tweet in the dataset as a 
+      card with the overall sentiment and score-->
+    {% for tweet in tweets %}
+    <div class="col-3 margin-bottom">
+      <div class="card" style="width: 20rem; min-height: 17rem">
+        <div class="card-body">
+          <p class="card-text">{{ tweet.text }}</p>
+        </div>
+        <div class="card-footer text-muted">
+          <form action="/sentiment" method="POST">
+            <input
+              type="hidden"
+              class="form-control"
+              name="input"
+              value="{{ tweet.text }}"
+            />
+            <button class="btn btn-primary" type="submit">
+              Sentiment: {{ getSentiment(tweet.text) }} ({{
+              getSentimentScore(tweet.text) }})
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

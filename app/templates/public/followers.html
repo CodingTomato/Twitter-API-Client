@@ -1,0 +1,35 @@
+{% extends "public/templates/public_template.html" %}
+
+{% block title %}{{ user.username }}'s Followers{% endblock %}
+
+{% block main %}
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <!-- Display this text when no followers where loaded -->
+      {% if number_of_followers < 1 %}
+      <h3>No followers were found... Maybe wrong username?</h3>
+      {% else %}
+      <!-- Display the users total follows and the displayed count -->
+      <h1><b>{{ user.username }}</b> has a total of {{ user.public_metrics.followers_count }} followers</h1>
+      <h6>Displaying the last {{ number_of_followers }} below</h6>
+      <a href="/user/{{ user.username }}/tweets">Click to see {{ user.username }}'s tweets...</a>
+      {% endif %}
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <ul class="list-group"></ul>
+      <!-- display each displayed follower as a list item -->
+      {% for follower in followers %}
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        {{ follower.username }}
+        <a role="button" target="_blank" href="https://twitter.com/{{follower.username}}" class="btn btn-primary btn-sm">View profile</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}
