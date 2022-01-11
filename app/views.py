@@ -178,10 +178,10 @@ def dataset():
         while next_token != 0:
             # First request without a pagination token
             if(next_token == 1):
-                response = apiV2.search_tweets(query, expansions="author_id", max_results=100)
+                response = apiV2.search_tweets(query, expansions="author_id", max_results=100, user_fields="public_metrics")
             # Next pages with last pagination_token
             else:
-                response = apiV2.search_tweets(query, expansions="author_id", max_results=100, next_token= next_token)
+                response = apiV2.search_tweets(query, expansions="author_id", max_results=100, next_token= next_token, user_fields="public_metrics")
 
             for user in response.includes.users:
                 tweets_users.update({user.id: user})

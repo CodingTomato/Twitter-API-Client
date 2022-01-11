@@ -134,7 +134,8 @@ Analysis{% endblock %} {% block main %}
                 <li
                   class="list-group-item d-flex justify-content-between align-items-center"
                 >
-                  {{ user.username }}
+                  {{ user.username }} ({{user.public_metrics.followers_count}}
+                  Followers)
                   <a
                     class="btn btn-primary"
                     href="/user/{{ user.username }}/followers"
@@ -158,7 +159,10 @@ Analysis{% endblock %} {% block main %}
       <div class="card" style="width: 20rem; min-height: 20rem">
         <div class="card-body">
           <h6 class="card-subtitle mb-2 text-muted">
-            From <b>{{ tweets_users.get(tweet.author_id).username }}</b>
+            From
+            <b>{{ tweets_users.get(tweet.author_id).username }} </b>
+            ({{tweets_users.get(tweet.author_id).public_metrics.followers_count
+            }} Followers)
           </h6>
           <p class="card-text">{{ tweet.text }}</p>
         </div>
