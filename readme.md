@@ -1,7 +1,11 @@
 # OTH KDSP Project
+This is an application for analyzing Twitter datasets and users. 
+
+## Required modules
+All the required modules can be found in the requirements.txt file.
 
 ## Setup
-### Start the virtual enviroment
+### 1. Start the virtual enviroment
 
 *Linux Terminal:* \
 In the project directory type `virtualenv env`
@@ -9,7 +13,9 @@ In the project directory type `virtualenv env`
 *Windows Powershell:* \
 In the project directory type `env/Scripts/Activate.ps1`
 
-### Set all necessary environment variables
+### 2. Set all necessary environment variables
+You will need to have a bearer token for the Twitter API v2. If you dont have one at hand you can use mine from below.
+>  AAAAAAAAAAAAAAAAAAAAAM2rWAEAAAAA9zzLSJExnjbyMGEAqhe%2Brz9msqU%3DEyPaUUaOTgzoXzetY8qIfqrOtK3mBczYuJuOoH01DFhkzolMsY
 
 *Linux Terminal:* \
 Type
@@ -23,5 +29,6 @@ Type
 and 
 `$env:BEARER_TOKEN = '<your twitter api bearer token here>'`
 
-### Start the project
+### 3. Start the project
 Type `flask run`
+The Project should start now. Inside the terminal you should see a address to navigate to to use the application.
