@@ -1,4 +1,4 @@
-# OTH KDSP Project
+# Twitter API Client
 This is an application for analyzing Twitter datasets and users. 
 
 ## Required modules
