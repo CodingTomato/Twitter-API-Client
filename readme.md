@@ -14,8 +14,7 @@ In the project directory type `virtualenv env`
 In the project directory type `env/Scripts/Activate.ps1`
 
 ### 2. Set all necessary environment variables
-You will need to have a bearer token for the Twitter API v2. If you dont have one at hand you can use mine from below.
->  AAAAAAAAAAAAAAAAAAAAAM2rWAEAAAAA9zzLSJExnjbyMGEAqhe%2Brz9msqU%3DEyPaUUaOTgzoXzetY8qIfqrOtK3mBczYuJuOoH01DFhkzolMsY
+You will need to have a bearer token for the Twitter API v2.
 
 *Linux Terminal:* \
 Type
